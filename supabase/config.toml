@@ -1,0 +1,2 @@
+[functions.peopledesk-admin]
+verify_jwt = true

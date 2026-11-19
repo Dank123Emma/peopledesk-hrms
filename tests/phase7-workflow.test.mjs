@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import { nextCandidateStage, isCandidateTransitionAllowed, isVacancyTransitionAllowed } from '../js/recruitment-workflow.js';
+assert.equal(nextCandidateStage('Received'), 'Under Review');
+assert.equal(nextCandidateStage('Under Review'), 'Shortlisted');
+assert.equal(nextCandidateStage('Shortlisted'), 'Interviewed');
+assert.equal(nextCandidateStage('Interviewed'), 'Selected');
+assert.equal(nextCandidateStage('Selected'), null);
+assert.equal(isCandidateTransitionAllowed('Received', 'Under Review'), true);
+assert.equal(isCandidateTransitionAllowed('Received', 'Selected'), false);
+assert.equal(isCandidateTransitionAllowed('Shortlisted', 'Rejected'), true);
+assert.equal(isCandidateTransitionAllowed('Selected', 'Rejected'), false);
+assert.equal(isVacancyTransitionAllowed('Draft', 'Pending Approval', false), true);
+assert.equal(isVacancyTransitionAllowed('Pending Approval', 'Open', false), false);
+assert.equal(isVacancyTransitionAllowed('Pending Approval', 'Open', true), true);
+assert.equal(isVacancyTransitionAllowed('Open', 'Closed', false), true);
+assert.equal(isVacancyTransitionAllowed('Closed', 'Open', true), false);
+console.log('PeopleDesk Phase 7 workflow tests passed.');
